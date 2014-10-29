@@ -23,8 +23,8 @@ ENV JAVA_HOME /usr/lib/jvm/jre
 # Install Nexus
 ##########################################################
 RUN mkdir -p /opt/sonatype-nexus /opt/sonatype-work
-RUN wget -O /tmp/nexus-latest-bundle.tar.gz http://www.sonatype.org/downloads/nexus-latest-bundle.tar.gz
-RUN tar xzvf /tmp/nexus-latest-bundle.tar.gz -C /opt/sonatype-nexus --strip-components=1
+RUN wget -O /tmp/nexus-bundle.tar.gz http://download.sonatype.com/nexus/oss/nexus-2.8.1-bundle.tar.gz
+RUN tar xzvf /tmp/nexus-bundle.tar.gz -C /opt/sonatype-nexus --strip-components=1
 RUN useradd --user-group --system --home-dir /opt/sonatype-nexus nexus
 
 ADD nexus.xml /opt/sonatype-work/nexus/conf/nexus.xml

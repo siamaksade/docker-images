@@ -1,27 +1,15 @@
 #######################################################################
 #                                                                     #
-# Creates a base CentOS image with Nexus							  #
+# Creates a image with Sonatype nexus       						  #
 #                                                                     #
 #######################################################################
 
-# Use the centos base image
-FROM centos:centos6
+FROM siamaksade/base
+
 MAINTAINER Siamak Sadeghianfar <ssadeghi@redhat.com>
 
-
 USER root
-# Update the system
-RUN yum -y update;yum clean all
 
-##########################################################
-# Install Java JDK, SSH and other useful cmdline utilities
-##########################################################
-RUN yum -y install java-1.7.0-openjdk-devel which telnet unzip openssh-server sudo openssh-clients iputils iproute httpd-tools wget tar; yum clean all
-ENV JAVA_HOME /usr/lib/jvm/jre
-
-##########################################################
-# Install Nexus
-##########################################################
 RUN mkdir -p /opt/sonatype-nexus /opt/sonatype-work
 RUN wget -O /tmp/nexus-bundle.tar.gz http://download.sonatype.com/nexus/oss/nexus-2.8.1-bundle.tar.gz
 RUN tar xzvf /tmp/nexus-bundle.tar.gz -C /opt/sonatype-nexus --strip-components=1

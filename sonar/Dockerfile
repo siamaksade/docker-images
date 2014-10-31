@@ -4,21 +4,11 @@
 #                                                                     #
 #######################################################################
 
-# Use the centos base image
-FROM centos:centos6
+FROM siamaksade/base
+
 MAINTAINER Siamak Sadeghianfar <ssadeghi@redhat.com>
 
-
 USER root
-# Update the system
-RUN yum -y update;yum clean all
-
-##########################################################
-# Install Java JDK other useful cmdline utilities
-##########################################################
-RUN yum -y install java-1.7.0-openjdk-devel which telnet unzip openssh-server sudo openssh-clients iputils iproute httpd-tools wget
-RUN yum clean all
-
 
 ############################################
 # Install PostgreSQL
@@ -48,11 +38,8 @@ RUN sed -i \
         /opt/sonarqube/conf/sonar.properties
 
 ############################################
-# Install Supervisor
+# Configure Supervisor
 ############################################
-
-RUN yum -y localinstall http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm 
-RUN yum -y install supervisor
 
 RUN echo "[program:postgresql]" >> /etc/supervisord.conf
 RUN echo "command=/etc/init.d/postgresql-9.3 start" >> /etc/supervisord.conf

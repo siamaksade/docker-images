@@ -4,22 +4,11 @@
 #                                                                     #
 #######################################################################
 
-# Use the centos base image
-FROM centos:centos6
-MAINTAINER Thomas Qvarnstrom <tqvarnst@redhat.com>
+FROM siamaksade/base
+
 MAINTAINER Siamak Sadeghianfar <ssadeghi@redhat.com>
 
-
 USER root
-# Update the system
-RUN yum -y update;yum clean all
-
-
-##########################################################
-# Install Java JDK, SSH and other useful cmdline utilities
-##########################################################
-RUN yum -y install java-1.7.0-openjdk-devel which telnet unzip openssh-server sudo openssh-clients iputils iproute httpd-tools wget; yum clean all
-ENV JAVA_HOME /usr/lib/jvm/jre
 
 ############################################
 # Install Jenkins
@@ -27,7 +16,6 @@ ENV JAVA_HOME /usr/lib/jvm/jre
 RUN wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
 RUN rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
 RUN yum -y install jenkins
-
 
 RUN cp /etc/sysconfig/jenkins /etc/sysconfig/jenkins.save
 RUN sed -i 's/^JENKINS_ARGS=.*/JENKINS_ARGS="--prefix=\/jenkins"/' /etc/sysconfig/jenkins
@@ -63,12 +51,9 @@ RUN wget -O /var/lib/jenkins/plugins/scm-api.hpi http://updates.jenkins-ci.org/d
 RUN chown -R jenkins:jenkins /var/lib/jenkins
 
 ############################################
-# Install Supervisor
+# Condfigure Supervisor
 ############################################
 
-RUN wget -O /tmp/epel-release-6-8.noarch.rpm http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm 
-RUN rpm -ivh /tmp/epel-release-6-8.noarch.rpm
-RUN yum -y install supervisor
 RUN echo "[program:jenkins]" >> /etc/supervisord.conf
 RUN echo "command=/etc/init.d/jenkins start" >> /etc/supervisord.conf
 

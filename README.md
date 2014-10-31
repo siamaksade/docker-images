@@ -5,7 +5,6 @@ This repository contains docker images for:
 
 * JBoss EAP
 * Jenkins Base
-* Jenkins CI (added plugins and jobs for demo)
 * Sonatype Nexus
 * SonarQube
 * NodeJS

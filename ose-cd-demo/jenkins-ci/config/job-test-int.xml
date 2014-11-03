@@ -5,7 +5,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <se.diabol.jenkins.pipeline.PipelineProperty plugin="delivery-pipeline-plugin@0.8.6">
-      <taskName>Static Code Analysis</taskName>
+      <taskName>Run integration tests</taskName>
       <stageName>BUILD</stageName>
     </se.diabol.jenkins.pipeline.PipelineProperty>
   </properties>
@@ -35,7 +35,7 @@
     <groupId>org.jboss.examples</groupId>
     <artifactId>ticket-monster</artifactId>
   </rootModule>
-  <goals>package</goals>
+  <goals>package test deploy</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
   <ignoreUpstremChanges>false</ignoreUpstremChanges>
@@ -52,7 +52,7 @@
   <reporters/>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>ticket-monster-test-int</childProjects>
+      <childProjects>ticket-monster-release</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -60,16 +60,6 @@
         <completeBuild>true</completeBuild>
       </threshold>
     </hudson.tasks.BuildTrigger>
-    <hudson.plugins.sonar.SonarPublisher plugin="sonar@2.1">
-      <jdk>(Inherit From Job)</jdk>
-      <branch></branch>
-      <language></language>
-      <mavenOpts></mavenOpts>
-      <jobAdditionalProperties></jobAdditionalProperties>
-      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
-      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
-      <usePrivateRepository>false</usePrivateRepository>
-    </hudson.plugins.sonar.SonarPublisher>
   </publishers>
   <buildWrappers/>
   <prebuilders/>

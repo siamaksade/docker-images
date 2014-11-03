@@ -14,8 +14,8 @@
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
     <se.diabol.jenkins.pipeline.PipelineProperty plugin="delivery-pipeline-plugin@0.8.6">
-      <taskName>Deploy to DEV</taskName>
-      <stageName>DEV</stageName>
+      <taskName>Deploy to PERF TEST</taskName>
+      <stageName>PERF TEST</stageName>
     </se.diabol.jenkins.pipeline.PipelineProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
@@ -31,13 +31,13 @@
       <cartridges>jbosseap-6</cartridges>
       <domain>smx</domain>
       <gearProfile>small</gearProfile>
-      <appName>devticketmonster</appName>
+      <appName>perfticketmonster</appName>
       <deploymentPath>http://nexus:8081/nexus/service/local/artifact/maven/redirect?r=releases&amp;g=org.jboss.examples&amp;a=ticket-monster&amp;v=${ENV,var=&quot;ARTIFACT_VERSION&quot;}&amp;e=war</deploymentPath>
     </org.jenkinsci.plugins.openshift.OpenShiftBuilder>
   </builders>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>ticket-monster-test-func</childProjects>
+      <childProjects>ticket-monster-test-perf</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -46,10 +46,4 @@
       </threshold>
     </hudson.tasks.BuildTrigger>
   </publishers>
-  <buildWrappers>
-    <se.diabol.jenkins.pipeline.PipelineVersionContributor plugin="delivery-pipeline-plugin@0.8.6">
-      <versionTemplate>${ENV,var=&quot;ARTIFACT_VERSION&quot;}</versionTemplate>
-      <updateDisplayName>false</updateDisplayName>
-    </se.diabol.jenkins.pipeline.PipelineVersionContributor>
-  </buildWrappers>
 </project>

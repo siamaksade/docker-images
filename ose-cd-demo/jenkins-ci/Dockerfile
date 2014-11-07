@@ -35,7 +35,7 @@ ADD config/maven-settings.xml /usr/share/apache-maven/conf/settings.xml
 ADD config/sonar-settings.xml /var/lib/jenkins/hudson.plugins.sonar.SonarPublisher.xml
 
 # OpenShift Deployer Settings
-ADD config/openshift-settings.xml /var/lib/jenkins/org.jenkinsci.plugins.openshift.OpenShiftBuilder.xml
+ADD config/openshift-settings.xml /var/lib/jenkins/org.jenkinsci.plugins.openshift.DeployApplication.xml
 
 # Build Jobs
 RUN mkdir -p /var/lib/jenkins/jobs/ticket-monster-{analysis,build,deploy-dev,func-test,release,test}
@@ -52,6 +52,9 @@ ADD config/job-test-int.xml 		/var/lib/jenkins/jobs/ticket-monster-test-int/conf
 ADD config/job-test-sys.xml 		/var/lib/jenkins/jobs/ticket-monster-test-sys/config.xml
 ADD config/job-test-perf.xml 		/var/lib/jenkins/jobs/ticket-monster-test-perf/config.xml
 
+# Disable SNI Extension
+RUN sed -i "s/JENKINS_JAVA_OPTIONS/#JENKINS_JAVA_OPTIONS/g" /etc/sysconfig/jenkins
+RUN echo "JENKINS_JAVA_OPTIONS=\"-Djava.awt.headless=true -Djsse.enableSNIExtension=false\"" >> /etc/sysconfig/jenkins
 
 # Set Permissions
 RUN chown -R jenkins:jenkins /var/lib/jenkins

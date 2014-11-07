@@ -52,7 +52,7 @@
   <reporters/>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>ticket-monster-analysis</childProjects>
+      <childProjects>ticket-monster-analysis,ticket-monster-test-int</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

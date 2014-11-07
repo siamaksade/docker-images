@@ -6,7 +6,7 @@
   <properties>
     <se.diabol.jenkins.pipeline.PipelineProperty plugin="delivery-pipeline-plugin@0.8.6">
       <taskName>Release</taskName>
-      <stageName>BUILD</stageName>
+      <stageName>DEV</stageName>
     </se.diabol.jenkins.pipeline.PipelineProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.4">
@@ -33,8 +33,7 @@
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <blockBuildWhenUpstreamBuilding>true</blockBuildWhenUpstreamBuilding>
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
     <groupId>org.jboss.examples</groupId>
